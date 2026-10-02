@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="it" class="light">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Costo del Lavoro (2025 - 2026)</title>
+    <title>Labor Cost Dashboard (2025 - 2026)</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -37,7 +37,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- SheetJS CDN per Export Excel -->
+    <!-- SheetJS CDN for Excel Export -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -68,9 +68,9 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 bg-clip-text text-transparent dark:from-indigo-400 dark:to-purple-400">
-                        Costo del Lavoro <span class="text-xs px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 font-semibold align-middle">2025 - 2026</span>
+                        Labor Cost Dashboard <span class="text-xs px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 font-semibold align-middle">2025 - 2026</span>
                     </h1>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Dashboard Analitica Aziendale • Kundalini Unipersonale</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Company Analytics Dashboard • Kundalini Unipersonale</p>
                 </div>
             </div>
 
@@ -78,17 +78,17 @@
             <div class="flex items-center space-x-4">
                 <div class="hidden md:flex items-center space-x-6 text-xs border-r border-slate-200 dark:border-slate-800 pr-6">
                     <div>
-                        <span class="block text-slate-400 dark:text-slate-500 uppercase font-semibold text-[10px]">Record Filtro</span>
+                        <span class="block text-slate-400 dark:text-slate-500 uppercase font-semibold text-[10px]">Filtered Records</span>
                         <span id="header-records-count" class="font-bold text-slate-700 dark:text-slate-200 text-sm">651</span>
                     </div>
                     <div>
-                        <span class="block text-slate-400 dark:text-slate-500 uppercase font-semibold text-[10px]">Totale Filtrato</span>
-                        <span id="header-filtered-cost" class="font-bold text-indigo-600 dark:text-indigo-400 text-sm">€ 823.133</span>
+                        <span class="block text-slate-400 dark:text-slate-500 uppercase font-semibold text-[10px]">Filtered Total</span>
+                        <span id="header-filtered-cost" class="font-bold text-indigo-600 dark:text-indigo-400 text-sm">€ 823,133</span>
                     </div>
                 </div>
 
                 <!-- Dark Mode Toggle -->
-                <button id="theme-toggle" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+                <button id="theme-toggle" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="Toggle Theme">
                     <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
                     <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
                 </button>
@@ -100,55 +100,55 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-3 text-xs">
                 <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
                     <span class="flex items-center font-semibold text-slate-500 dark:text-slate-400">
-                        <i data-lucide="filter" class="w-3.5 h-3.5 mr-1 text-indigo-500"></i> Filtri:
+                        <i data-lucide="filter" class="w-3.5 h-3.5 mr-1 text-indigo-500"></i> Filters:
                     </span>
 
-                    <!-- Anno Filter -->
+                    <!-- Year Filter -->
                     <select id="filter-anno" class="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1.5 font-medium focus:ring-2 focus:ring-indigo-500 outline-none">
-                        <option value="ALL">Anno: Tutti (2025-2026)</option>
-                        <option value="2025">Anno 2025</option>
-                        <option value="2026">Anno 2026</option>
+                        <option value="ALL">Year: All (2025-2026)</option>
+                        <option value="2025">Year 2025</option>
+                        <option value="2026">Year 2026</option>
                     </select>
 
-                    <!-- Mese Filter -->
+                    <!-- Month Filter -->
                     <select id="filter-mese" class="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1.5 font-medium focus:ring-2 focus:ring-indigo-500 outline-none">
-                        <option value="ALL">Mese: Tutti i mesi</option>
-                        <option value="GENNAIO">Gennaio</option>
-                        <option value="FEBBRAIO">Febbraio</option>
-                        <option value="MARZO">Marzo</option>
-                        <option value="APRILE">Aprile</option>
-                        <option value="MAGGIO">Maggio</option>
-                        <option value="GIUGNO">Giugno</option>
-                        <option value="LUGLIO">Luglio</option>
-                        <option value="AGOSTO">Agosto</option>
-                        <option value="SETTEMBRE">Settembre</option>
-                        <option value="OTTOBRE">Ottobre</option>
-                        <option value="NOVEMBRE">Novembre</option>
-                        <option value="DICEMBRE">Dicembre</option>
+                        <option value="ALL">Month: All Months</option>
+                        <option value="GENNAIO">January</option>
+                        <option value="FEBBRAIO">February</option>
+                        <option value="MARZO">March</option>
+                        <option value="APRILE">April</option>
+                        <option value="MAGGIO">May</option>
+                        <option value="GIUGNO">June</option>
+                        <option value="LUGLIO">July</option>
+                        <option value="AGOSTO">August</option>
+                        <option value="SETTEMBRE">September</option>
+                        <option value="OTTOBRE">October</option>
+                        <option value="NOVEMBRE">November</option>
+                        <option value="DICEMBRE">December</option>
                     </select>
 
-                    <!-- Contratto Filter -->
+                    <!-- Contract Filter -->
                     <select id="filter-contratto" class="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1.5 font-medium focus:ring-2 focus:ring-indigo-500 outline-none">
-                        <option value="ALL">Contratto: Tutti</option>
-                        <option value="AMMINISTRATIVO">Amministrativo</option>
-                        <option value="DIPENDENTE">Dipendente</option>
-                        <option value="PROFESSIONISTA">Professionista</option>
-                        <option value="SPORTIVO">Sportivo</option>
+                        <option value="ALL">Contract: All</option>
+                        <option value="AMMINISTRATIVO">Administrative</option>
+                        <option value="DIPENDENTE">Employee</option>
+                        <option value="PROFESSIONISTA">Professional / Contractor</option>
+                        <option value="SPORTIVO">Sports Staff</option>
                     </select>
 
-                    <!-- Funzione Filter -->
+                    <!-- Function Filter -->
                     <select id="filter-funzione" class="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg px-2.5 py-1.5 font-medium focus:ring-2 focus:ring-indigo-500 outline-none">
-                        <option value="ALL">Funzione: Tutte</option>
+                        <option value="ALL">Function: All</option>
                         <option value="BAR">Bar</option>
-                        <option value="ISTRUTTORE">Istruttore</option>
-                        <option value="ISTRUTTORE/TRACCIATORE">Istruttore/Tracciatore</option>
+                        <option value="ISTRUTTORE">Instructor</option>
+                        <option value="ISTRUTTORE/TRACCIATORE">Instructor / Route Setter</option>
                         <option value="RECEPTION">Reception</option>
-                        <option value="TRACCIATORE">Tracciatore</option>
+                        <option value="TRACCIATORE">Route Setter</option>
                     </select>
 
-                    <!-- Persona Search Input -->
+                    <!-- Search Input -->
                     <div class="relative min-w-[180px]">
-                        <input type="text" id="filter-persona" placeholder="Cerca Collaboratore..." class="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg pl-7 pr-2.5 py-1.5 font-medium focus:ring-2 focus:ring-indigo-500 outline-none placeholder:text-slate-400">
+                        <input type="text" id="filter-persona" placeholder="Search staff member..." class="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg pl-7 pr-2.5 py-1.5 font-medium focus:ring-2 focus:ring-indigo-500 outline-none placeholder:text-slate-400">
                         <i data-lucide="search" class="w-3.5 h-3.5 absolute left-2 top-2.5 text-slate-400"></i>
                     </div>
 
@@ -169,25 +169,25 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav class="flex space-x-1 sm:space-x-4 overflow-x-auto no-scrollbar py-2 text-xs font-semibold">
                 <button data-tab="tab-overview" class="tab-btn active border-b-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 px-3 py-2 flex items-center gap-2 whitespace-nowrap transition">
-                    <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Overview Esecutiva
+                    <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Executive Overview
                 </button>
                 <button data-tab="tab-temporale" class="tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-indigo-600 px-3 py-2 flex items-center gap-2 whitespace-nowrap transition">
-                    <i data-lucide="calendar" class="w-4 h-4"></i> Analisi Temporale (Mese/Anno)
+                    <i data-lucide="calendar" class="w-4 h-4"></i> Temporal Analysis (Month/Year)
                 </button>
                 <button data-tab="tab-dipendenti" class="tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-indigo-600 px-3 py-2 flex items-center gap-2 whitespace-nowrap transition">
-                    <i data-lucide="users" class="w-4 h-4"></i> Collaboratori (<span id="tab-count-persone">44</span>)
+                    <i data-lucide="users" class="w-4 h-4"></i> Staff Members (<span id="tab-count-persone">44</span>)
                 </button>
                 <button data-tab="tab-contratti" class="tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-indigo-600 px-3 py-2 flex items-center gap-2 whitespace-nowrap transition">
-                    <i data-lucide="file-text" class="w-4 h-4"></i> Analisi Contratti
+                    <i data-lucide="file-text" class="w-4 h-4"></i> Contract Analysis
                 </button>
                 <button data-tab="tab-funzioni" class="tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-indigo-600 px-3 py-2 flex items-center gap-2 whitespace-nowrap transition">
-                    <i data-lucide="briefcase" class="w-4 h-4"></i> Analisi Funzioni
+                    <i data-lucide="briefcase" class="w-4 h-4"></i> Function Analysis
                 </button>
                 <button data-tab="tab-dati" class="tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-indigo-600 px-3 py-2 flex items-center gap-2 whitespace-nowrap transition">
-                    <i data-lucide="table" class="w-4 h-4"></i> Tabella Dati & Export
+                    <i data-lucide="table" class="w-4 h-4"></i> Data Table & Export
                 </button>
                 <button data-tab="tab-simulatore" class="tab-btn border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-indigo-600 px-3 py-2 flex items-center gap-2 whitespace-nowrap transition">
-                    <i data-lucide="calculator" class="w-4 h-4"></i> Simulatore & Forecast
+                    <i data-lucide="calculator" class="w-4 h-4"></i> Simulator & Forecast
                 </button>
             </nav>
         </div>
@@ -196,7 +196,7 @@
     <!-- MAIN CONTENT AREA -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
 
-        <!-- TAB 1: OVERVIEW ESECUTIVA -->
+        <!-- TAB 1: EXECUTIVE OVERVIEW -->
         <div id="tab-overview" class="tab-content space-y-6">
             
             <!-- KPI CARDS GRID -->
@@ -204,13 +204,13 @@
                 <!-- KPI 1 -->
                 <div class="glass-panel p-5 rounded-2xl shadow-sm hover:shadow-md transition">
                     <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs font-semibold">
-                        <span>Costo Azienda Totale</span>
+                        <span>Total Company Labor Cost</span>
                         <div class="p-2 rounded-xl bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400">
                             <i data-lucide="euro" class="w-4 h-4"></i>
                         </div>
                     </div>
                     <div class="mt-3 flex items-baseline justify-between">
-                        <span id="kpi-total-cost" class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">€ 823.133</span>
+                        <span id="kpi-total-cost" class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">€ 823,133</span>
                     </div>
                     <p class="mt-2 text-[11px] text-slate-400 flex items-center gap-1">
                         <span id="kpi-total-sub" class="text-emerald-600 dark:text-emerald-400 font-semibold">2025: €487k | 2026: €335k</span>
@@ -220,23 +220,23 @@
                 <!-- KPI 2 -->
                 <div class="glass-panel p-5 rounded-2xl shadow-sm hover:shadow-md transition">
                     <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs font-semibold">
-                        <span>Media Costo Mensile</span>
+                        <span>Average Monthly Cost</span>
                         <div class="p-2 rounded-xl bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400">
                             <i data-lucide="trending-up" class="w-4 h-4"></i>
                         </div>
                     </div>
                     <div class="mt-3 flex items-baseline justify-between">
-                        <span id="kpi-monthly-avg" class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">€ 41.156</span>
+                        <span id="kpi-monthly-avg" class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">€ 41,156</span>
                     </div>
                     <p class="mt-2 text-[11px] text-slate-400 flex items-center gap-1">
-                        <span id="kpi-monthly-sub" class="text-slate-500 dark:text-slate-400 font-medium">su 20 mesi analizzati</span>
+                        <span id="kpi-monthly-sub" class="text-slate-500 dark:text-slate-400 font-medium">across 20 months analyzed</span>
                     </p>
                 </div>
 
                 <!-- KPI 3 -->
                 <div class="glass-panel p-5 rounded-2xl shadow-sm hover:shadow-md transition">
                     <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs font-semibold">
-                        <span>Collaboratori Attivi</span>
+                        <span>Active Staff Members</span>
                         <div class="p-2 rounded-xl bg-purple-50 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400">
                             <i data-lucide="user-check" class="w-4 h-4"></i>
                         </div>
@@ -245,23 +245,23 @@
                         <span id="kpi-active-people" class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">44</span>
                     </div>
                     <p class="mt-2 text-[11px] text-slate-400 flex items-center gap-1">
-                        <span id="kpi-people-sub" class="text-slate-500 dark:text-slate-400 font-medium">Persone distinte a registro</span>
+                        <span id="kpi-people-sub" class="text-slate-500 dark:text-slate-400 font-medium">Distinct active individuals</span>
                     </p>
                 </div>
 
                 <!-- KPI 4 -->
                 <div class="glass-panel p-5 rounded-2xl shadow-sm hover:shadow-md transition">
                     <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs font-semibold">
-                        <span>Costo Medio per Persona</span>
+                        <span>Average Cost per Person</span>
                         <div class="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400">
                             <i data-lucide="badge-percent" class="w-4 h-4"></i>
                         </div>
                     </div>
                     <div class="mt-3 flex items-baseline justify-between">
-                        <span id="kpi-avg-per-person" class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">€ 18.707</span>
+                        <span id="kpi-avg-per-person" class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">€ 18,707</span>
                     </div>
                     <p class="mt-2 text-[11px] text-slate-400 flex items-center gap-1">
-                        <span id="kpi-avg-person-sub" class="text-slate-500 dark:text-slate-400 font-medium">Media spesa per collaboratore</span>
+                        <span id="kpi-avg-person-sub" class="text-slate-500 dark:text-slate-400 font-medium">Average spend per employee</span>
                     </p>
                 </div>
             </div>
@@ -270,37 +270,37 @@
             <div class="p-4 rounded-2xl bg-gradient-to-r from-indigo-900 via-slate-900 to-indigo-950 text-white shadow-lg relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                 <div class="relative z-10">
                     <div class="flex items-center gap-2 text-indigo-300 font-bold text-xs uppercase tracking-wider">
-                        <i data-lucide="sparkles" class="w-4 h-4"></i> Benchmark YTD (Gennaio - Agosto 2025 vs 2026)
+                        <i data-lucide="sparkles" class="w-4 h-4"></i> YTD Benchmark (January - August 2025 vs 2026)
                     </div>
                     <h2 class="text-lg font-bold mt-1">
-                        Confronto 8 Mesi: <span class="text-emerald-400">+5.91%</span> di incremento nel 2026
+                        8-Month Comparison: <span class="text-emerald-400">+5.91%</span> spend increase in 2026
                     </h2>
                     <p class="text-xs text-indigo-200 mt-1 max-w-2xl">
-                        Nei primi 8 mesi del 2025 l'azienda ha speso <span class="font-semibold text-white">€316.634</span>. Nello stesso periodo del 2026 la spesa è stata di <span class="font-semibold text-white">€335.345</span>. Con l'attuale run-rate mensile, la proiezione 2026 a 12 mesi stima un totale annuale di circa <span class="font-semibold text-emerald-300">€503.018</span>.
+                        In the first 8 months of 2025, total labor spend reached <span class="font-semibold text-white">€316,634</span>. In the same period of 2026, spend reached <span class="font-semibold text-white">€335,345</span>. At the current monthly run rate, full-year 2026 projection is estimated at <span class="font-semibold text-emerald-300">~€503,018</span>.
                     </p>
                 </div>
                 <div class="relative z-10 flex items-center gap-3 shrink-0">
                     <div class="bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10 text-center">
                         <span class="block text-[10px] text-indigo-200 uppercase font-semibold">2025 YTD (8M)</span>
-                        <span class="text-base font-bold text-white">€ 316.634</span>
+                        <span class="text-base font-bold text-white">€ 316,634</span>
                     </div>
                     <div class="bg-white/20 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/20 text-center">
                         <span class="block text-[10px] text-indigo-200 uppercase font-semibold">2026 YTD (8M)</span>
-                        <span class="text-base font-bold text-emerald-300">€ 335.345</span>
+                        <span class="text-base font-bold text-emerald-300">€ 335,345</span>
                     </div>
                 </div>
             </div>
 
             <!-- CHARTS ROW 1 -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Trend Mensile 2025 vs 2026 Line Chart -->
+                <!-- Monthly Trend Line Chart -->
                 <div class="glass-panel p-5 rounded-2xl lg:col-span-2 flex flex-col justify-between">
                     <div class="flex items-center justify-between mb-4">
                         <div>
                             <h3 class="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                                <i data-lucide="line-chart" class="w-4 h-4 text-indigo-500"></i> Andamento Mensile del Costo del Lavoro (€)
+                                <i data-lucide="line-chart" class="w-4 h-4 text-indigo-500"></i> Monthly Labor Cost Trend (€)
                             </h3>
-                            <p class="text-xs text-slate-400">Confronto mese per mese per l'anno 2025 e 2026</p>
+                            <p class="text-xs text-slate-400">Month-by-month comparison for 2025 vs 2026</p>
                         </div>
                     </div>
                     <div class="h-72 w-full">
@@ -308,14 +308,14 @@
                     </div>
                 </div>
 
-                <!-- Ripartizione Contratti Doughnut Chart -->
+                <!-- Contract Share Doughnut Chart -->
                 <div class="glass-panel p-5 rounded-2xl flex flex-col justify-between">
                     <div class="flex items-center justify-between mb-4">
                         <div>
                             <h3 class="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                                <i data-lucide="pie-chart" class="w-4 h-4 text-indigo-500"></i> Quota per Tipo Contratto
+                                <i data-lucide="pie-chart" class="w-4 h-4 text-indigo-500"></i> Share by Contract Type
                             </h3>
-                            <p class="text-xs text-slate-400">Distribuzione del costo totale per tipologia</p>
+                            <p class="text-xs text-slate-400">Total cost breakdown by contract category</p>
                         </div>
                     </div>
                     <div class="h-72 w-full flex items-center justify-center">
@@ -326,14 +326,14 @@
 
             <!-- CHARTS ROW 2 -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Ripartizione Funzione Bar Chart -->
+                <!-- Function Bar Chart -->
                 <div class="glass-panel p-5 rounded-2xl">
                     <div class="flex items-center justify-between mb-4">
                         <div>
                             <h3 class="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                                <i data-lucide="bar-chart-3" class="w-4 h-4 text-indigo-500"></i> Spesa Aziendale per Funzione
+                                <i data-lucide="bar-chart-3" class="w-4 h-4 text-indigo-500"></i> Company Spend by Job Function
                             </h3>
-                            <p class="text-xs text-slate-400">Totale costi suddivisi per ruolo operativo</p>
+                            <p class="text-xs text-slate-400">Total costs divided by operational role</p>
                         </div>
                     </div>
                     <div class="h-72 w-full">
@@ -341,14 +341,14 @@
                     </div>
                 </div>
 
-                <!-- Top 10 Collaboratori Horizontal Bar Chart -->
+                <!-- Top 10 Employees Horizontal Bar Chart -->
                 <div class="glass-panel p-5 rounded-2xl">
                     <div class="flex items-center justify-between mb-4">
                         <div>
                             <h3 class="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                                <i data-lucide="trophy" class="w-4 h-4 text-amber-500"></i> Top 10 Collaboratori per Costo Totale
+                                <i data-lucide="trophy" class="w-4 h-4 text-amber-500"></i> Top 10 Staff Members by Total Cost
                             </h3>
-                            <p class="text-xs text-slate-400">Classifica dei principali costi individuali</p>
+                            <p class="text-xs text-slate-400">Ranking of major individual cost contributors</p>
                         </div>
                     </div>
                     <div class="h-72 w-full">
@@ -359,15 +359,15 @@
 
         </div>
 
-        <!-- TAB 2: ANALISI TEMPORALE -->
+        <!-- TAB 2: TEMPORAL ANALYSIS -->
         <div id="tab-temporale" class="tab-content hidden space-y-6">
             <div class="glass-panel p-5 rounded-2xl">
                 <div class="flex items-center justify-between mb-4">
                     <div>
                         <h3 class="text-base font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                            <i data-lucide="calendar-range" class="w-5 h-5 text-indigo-500"></i> Matrice Comparativa Mensile 2025 vs 2026
+                            <i data-lucide="calendar-range" class="w-5 h-5 text-indigo-500"></i> Monthly Comparison Matrix (2025 vs 2026)
                         </h3>
-                        <p class="text-xs text-slate-400">Dettaglio mensile delle variazioni assolute e percentuali tra i due anni</p>
+                        <p class="text-xs text-slate-400">Monthly breakdown of absolute and percentage variations between both years</p>
                     </div>
                 </div>
 
@@ -376,12 +376,12 @@
                     <table class="w-full text-xs text-left text-slate-600 dark:text-slate-300">
                         <thead class="bg-slate-100 dark:bg-slate-800 uppercase text-[11px] font-semibold text-slate-500 dark:text-slate-400">
                             <tr>
-                                <th class="px-4 py-3 rounded-l-lg">Mese</th>
-                                <th class="px-4 py-3 text-right">Costo 2025 (€)</th>
-                                <th class="px-4 py-3 text-right">Costo 2026 (€)</th>
-                                <th class="px-4 py-3 text-right">Variazione (€)</th>
-                                <th class="px-4 py-3 text-right">Variazione (%)</th>
-                                <th class="px-4 py-3 text-center rounded-r-lg">Trend Indicatore</th>
+                                <th class="px-4 py-3 rounded-l-lg">Month</th>
+                                <th class="px-4 py-3 text-right">Cost 2025 (€)</th>
+                                <th class="px-4 py-3 text-right">Cost 2026 (€)</th>
+                                <th class="px-4 py-3 text-right">Variation (€)</th>
+                                <th class="px-4 py-3 text-right">Change (%)</th>
+                                <th class="px-4 py-3 text-center rounded-r-lg">Trend Indicator</th>
                             </tr>
                         </thead>
                         <tbody id="table-monthly-comparison-body" class="divide-y divide-slate-200 dark:divide-slate-800">
@@ -394,14 +394,14 @@
                 </div>
             </div>
 
-            <!-- Stacked Area / Bar Chart Mensile per Contratto -->
+            <!-- Stacked Bar Chart Mensile per Contratto -->
             <div class="glass-panel p-5 rounded-2xl">
                 <div class="flex items-center justify-between mb-4">
                     <div>
                         <h3 class="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                            <i data-lucide="layers" class="w-4 h-4 text-indigo-500"></i> Composizione Contrattuale Mensile nel Tempo
+                            <i data-lucide="layers" class="w-4 h-4 text-indigo-500"></i> Monthly Contract Composition Over Time
                         </h3>
-                        <p class="text-xs text-slate-400">Evoluzione del mix contrattuale per ogni singolo mese dell'anno</p>
+                        <p class="text-xs text-slate-400">Evolution of contract mix for each month analyzed</p>
                     </div>
                 </div>
                 <div class="h-80 w-full">
@@ -410,17 +410,17 @@
             </div>
         </div>
 
-        <!-- TAB 3: DIPENDENTI / PERSONE -->
+        <!-- TAB 3: STAFF MEMBERS -->
         <div id="tab-dipendenti" class="tab-content hidden space-y-6">
             <div class="flex flex-wrap items-center justify-between gap-4">
                 <div>
                     <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                        <i data-lucide="users" class="w-5 h-5 text-indigo-500"></i> Elenco & Schede Collaboratori
+                        <i data-lucide="users" class="w-5 h-5 text-indigo-500"></i> Staff Directory & Profiles
                     </h2>
-                    <p class="text-xs text-slate-400">Visualizza e analizza la spesa per ciascuno dei 44 collaboratori. Clicca su un collaboratore per aprirne il profilo dettagliato.</p>
+                    <p class="text-xs text-slate-400">View and analyze cost breakdown for each of the 44 staff members. Click any card to inspect their detailed profile.</p>
                 </div>
                 <div class="flex items-center gap-2">
-                    <input type="text" id="employee-card-search" placeholder="Filtra collaboratore per nome..." class="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-1.5 text-xs font-medium outline-none focus:ring-2 focus:ring-indigo-500 min-w-[240px]">
+                    <input type="text" id="employee-card-search" placeholder="Filter staff by name..." class="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-1.5 text-xs font-medium outline-none focus:ring-2 focus:ring-indigo-500 min-w-[240px]">
                 </div>
             </div>
 
@@ -430,7 +430,7 @@
             </div>
         </div>
 
-        <!-- TAB 4: ANALISI CONTRATTI -->
+        <!-- TAB 4: CONTRACT ANALYSIS -->
         <div id="tab-contratti" class="tab-content hidden space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="contract-kpi-cards">
                 <!-- Contract KPI cards dynamically generated -->
@@ -439,8 +439,8 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <!-- Contract Breakdown Chart -->
                 <div class="glass-panel p-5 rounded-2xl">
-                    <h3 class="text-sm font-bold mb-1 text-slate-800 dark:text-slate-100">Costo Medio Mensile per Tipo Contratto</h3>
-                    <p class="text-xs text-slate-400 mb-4">Incidenza economica media mensile per tipologia contrattuale</p>
+                    <h3 class="text-sm font-bold mb-1 text-slate-800 dark:text-slate-100">Average Monthly Cost by Contract Type</h3>
+                    <p class="text-xs text-slate-400 mb-4">Average monthly cost breakdown per contract category</p>
                     <div class="h-72 w-full">
                         <canvas id="chart-contract-avg-bar"></canvas>
                     </div>
@@ -449,13 +449,13 @@
                 <!-- Cross Table Contract vs Function -->
                 <div class="glass-panel p-5 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <h3 class="text-sm font-bold mb-1 text-slate-800 dark:text-slate-100">Incrocio Contratto vs Funzione</h3>
-                        <p class="text-xs text-slate-400 mb-4">Ripartizione del costo per abbinamento contrattuale e operativo</p>
+                        <h3 class="text-sm font-bold mb-1 text-slate-800 dark:text-slate-100">Contract vs Function Matrix</h3>
+                        <p class="text-xs text-slate-400 mb-4">Cost distribution by contract type and operational role</p>
                         <div class="overflow-x-auto custom-scrollbar">
                             <table class="w-full text-xs text-left">
                                 <thead class="bg-slate-100 dark:bg-slate-800 font-semibold text-slate-600 dark:text-slate-300">
                                     <tr id="cross-table-contract-header">
-                                        <th class="px-3 py-2">Funzione \ Contratto</th>
+                                        <th class="px-3 py-2">Function \ Contract</th>
                                     </tr>
                                 </thead>
                                 <tbody id="cross-table-contract-body" class="divide-y divide-slate-200 dark:divide-slate-800">
@@ -467,39 +467,39 @@
             </div>
         </div>
 
-        <!-- TAB 5: ANALISI FUNZIONI -->
+        <!-- TAB 5: FUNCTION ANALYSIS -->
         <div id="tab-funzioni" class="tab-content hidden space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4" id="function-kpi-cards">
                 <!-- Function KPI cards dynamically generated -->
             </div>
 
             <div class="glass-panel p-5 rounded-2xl">
-                <h3 class="text-sm font-bold mb-1 text-slate-800 dark:text-slate-100">Confronto Funzioni: Costo Totale vs Numero Collaboratori</h3>
-                <p class="text-xs text-slate-400 mb-4">Analisi integrata dell'impatto economico e dell'organico per ruolo</p>
+                <h3 class="text-sm font-bold mb-1 text-slate-800 dark:text-slate-100">Function Comparison: Total Cost vs Headcount</h3>
+                <p class="text-xs text-slate-400 mb-4">Integrated analysis of economic impact and active headcount per role</p>
                 <div class="h-80 w-full">
                     <canvas id="chart-function-employees-combo"></canvas>
                 </div>
             </div>
         </div>
 
-        <!-- TAB 6: TABELLA DATI & EXPORT -->
+        <!-- TAB 6: DATA TABLE & EXPORT -->
         <div id="tab-dati" class="tab-content hidden space-y-4">
             <div class="glass-panel p-5 rounded-2xl">
                 <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
                     <div>
                         <h3 class="text-base font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                            <i data-lucide="database" class="w-5 h-5 text-indigo-500"></i> Registro Dettagliato dei Costi
+                            <i data-lucide="database" class="w-5 h-5 text-indigo-500"></i> Detailed Cost Register
                         </h3>
-                        <p class="text-xs text-slate-400">Esplora, ordina e filtra tutte le 651 voci del costo del lavoro</p>
+                        <p class="text-xs text-slate-400">Explore, sort, and filter all 651 labor cost entries</p>
                     </div>
 
                     <!-- Actions / Export Buttons -->
                     <div class="flex items-center gap-2">
                         <button id="btn-export-excel" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm transition">
-                            <i data-lucide="file-spread-sheet" class="w-4 h-4"></i> Esporta Excel (.xlsx)
+                            <i data-lucide="file-spread-sheet" class="w-4 h-4"></i> Export Excel (.xlsx)
                         </button>
                         <button id="btn-export-csv" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm transition">
-                            <i data-lucide="download" class="w-4 h-4"></i> Esporta CSV
+                            <i data-lucide="download" class="w-4 h-4"></i> Export CSV
                         </button>
                     </div>
                 </div>
@@ -507,17 +507,17 @@
                 <!-- Table Controls Bar -->
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-3 text-xs">
                     <div class="flex items-center gap-2">
-                        <span class="text-slate-500 font-medium">Mostra:</span>
+                        <span class="text-slate-500 font-medium">Show:</span>
                         <select id="datatable-page-size" class="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-md px-2 py-1 outline-none">
-                            <option value="15">15 righe</option>
-                            <option value="25" selected>25 righe</option>
-                            <option value="50">50 righe</option>
-                            <option value="100">100 righe</option>
-                            <option value="ALL">Tutte le righe</option>
+                            <option value="15">15 rows</option>
+                            <option value="25" selected>25 rows</option>
+                            <option value="50">50 rows</option>
+                            <option value="100">100 rows</option>
+                            <option value="ALL">All rows</option>
                         </select>
                     </div>
                     <div class="text-slate-500 font-medium">
-                        Risultati trovati: <span id="datatable-count" class="font-bold text-indigo-600 dark:text-indigo-400">651</span> righe
+                        Results found: <span id="datatable-count" class="font-bold text-indigo-600 dark:text-indigo-400">651</span> rows
                     </div>
                 </div>
 
@@ -526,12 +526,12 @@
                     <table class="w-full text-xs text-left text-slate-700 dark:text-slate-300">
                         <thead class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 uppercase text-[10px] font-bold tracking-wider">
                             <tr>
-                                <th class="px-4 py-3 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700" onclick="sortDataTable('MESE_NUM')">Mese <i data-lucide="arrow-up-down" class="w-3 h-3 inline"></i></th>
-                                <th class="px-4 py-3 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700" onclick="sortDataTable('ANNO')">Anno <i data-lucide="arrow-up-down" class="w-3 h-3 inline"></i></th>
-                                <th class="px-4 py-3 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700" onclick="sortDataTable('PERSONA')">Persona <i data-lucide="arrow-up-down" class="w-3 h-3 inline"></i></th>
-                                <th class="px-4 py-3 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700" onclick="sortDataTable('CONTRATTO')">Contratto <i data-lucide="arrow-up-down" class="w-3 h-3 inline"></i></th>
-                                <th class="px-4 py-3 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700" onclick="sortDataTable('FUNZIONE')">Funzione <i data-lucide="arrow-up-down" class="w-3 h-3 inline"></i></th>
-                                <th class="px-4 py-3 text-right cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700" onclick="sortDataTable('COSTO AZIENDA')">Costo Azienda (€) <i data-lucide="arrow-up-down" class="w-3 h-3 inline"></i></th>
+                                <th class="px-4 py-3 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700" onclick="sortDataTable('MESE_NUM')">Month <i data-lucide="arrow-up-down" class="w-3 h-3 inline"></i></th>
+                                <th class="px-4 py-3 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700" onclick="sortDataTable('ANNO')">Year <i data-lucide="arrow-up-down" class="w-3 h-3 inline"></i></th>
+                                <th class="px-4 py-3 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700" onclick="sortDataTable('PERSONA')">Staff Member <i data-lucide="arrow-up-down" class="w-3 h-3 inline"></i></th>
+                                <th class="px-4 py-3 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700" onclick="sortDataTable('CONTRATTO')">Contract <i data-lucide="arrow-up-down" class="w-3 h-3 inline"></i></th>
+                                <th class="px-4 py-3 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700" onclick="sortDataTable('FUNZIONE')">Function <i data-lucide="arrow-up-down" class="w-3 h-3 inline"></i></th>
+                                <th class="px-4 py-3 text-right cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700" onclick="sortDataTable('COSTO AZIENDA')">Company Cost (€) <i data-lucide="arrow-up-down" class="w-3 h-3 inline"></i></th>
                             </tr>
                         </thead>
                         <tbody id="datatable-body" class="divide-y divide-slate-200 dark:divide-slate-800 bg-white dark:bg-slate-900">
@@ -542,24 +542,24 @@
 
                 <!-- Pagination Footer -->
                 <div class="flex items-center justify-between mt-4 text-xs">
-                    <span id="datatable-info" class="text-slate-500">Pagina 1 di 1</span>
+                    <span id="datatable-info" class="text-slate-500">Page 1 of 1</span>
                     <div class="flex items-center space-x-2">
-                        <button id="btn-page-prev" class="px-3 py-1 rounded-lg border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40">Precedente</button>
-                        <button id="btn-page-next" class="px-3 py-1 rounded-lg border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40">Successiva</button>
+                        <button id="btn-page-prev" class="px-3 py-1 rounded-lg border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40">Previous</button>
+                        <button id="btn-page-next" class="px-3 py-1 rounded-lg border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40">Next</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- TAB 7: SIMULATORE & FORECAST -->
+        <!-- TAB 7: SIMULATOR & FORECAST -->
         <div id="tab-simulatore" class="tab-content hidden space-y-6">
             <div class="glass-panel p-6 rounded-2xl">
                 <div class="flex items-center justify-between mb-4">
                     <div>
                         <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                            <i data-lucide="sliders" class="w-5 h-5 text-indigo-500"></i> Simulatore Impatto Costo & Forecast 2026
+                            <i data-lucide="sliders" class="w-5 h-5 text-indigo-500"></i> Cost Impact Simulator & 2026 Forecast
                         </h3>
-                        <p class="text-xs text-slate-400">Modella scenari di variazione retributiva o simula la stima a consuntivo del 2026 completando i 4 mesi mancanti (Set-Dic)</p>
+                        <p class="text-xs text-slate-400">Model salary variation scenarios or forecast full-year 2026 by completing the remaining 4 months (Sep-Dec)</p>
                     </div>
                 </div>
 
@@ -568,32 +568,32 @@
                     <div class="space-y-5 bg-slate-50 dark:bg-slate-900/80 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
                         <div>
                             <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                                Variazione Percentuale Retribuzioni: <span id="sim-pct-val" class="text-indigo-600 dark:text-indigo-400 font-extrabold">+0%</span>
+                                Salary Change Percentage: <span id="sim-pct-val" class="text-indigo-600 dark:text-indigo-400 font-extrabold">+0%</span>
                             </label>
                             <input type="range" id="sim-pct" min="-25" max="25" value="0" step="1" class="w-full accent-indigo-600">
-                            <span class="text-[10px] text-slate-400">Simula incrementi o riduzioni di costo salariale</span>
+                            <span class="text-[10px] text-slate-400">Simulate wage cost increases or reductions</span>
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                                Stima Media Mensile 2026 per Mesi Mancanti (Set-Dic):
+                                Estimated 2026 Monthly Average for Remaining Months (Sep-Dec):
                             </label>
                             <input type="number" id="sim-forecast-monthly" value="41918" class="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-1.5 text-xs font-semibold text-indigo-600 dark:text-indigo-400 outline-none">
-                            <span class="text-[10px] text-slate-400">Media attuale 2026 (Gen-Ago): €41.918/mese</span>
+                            <span class="text-[10px] text-slate-400">Current 2026 average (Jan-Aug): €41,918/month</span>
                         </div>
 
                         <div class="pt-2 border-t border-slate-200 dark:border-slate-800 space-y-3">
                             <div class="p-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
-                                <span class="text-[11px] text-slate-400 font-semibold block">Costo 2025 Effettivo (12M)</span>
-                                <span class="text-base font-bold text-slate-800 dark:text-slate-200">€ 487.788</span>
+                                <span class="text-[11px] text-slate-400 font-semibold block">Actual 2025 Cost (12M)</span>
+                                <span class="text-base font-bold text-slate-800 dark:text-slate-200">€ 487,788</span>
                             </div>
                             <div class="p-3 bg-indigo-50 dark:bg-indigo-950/60 rounded-lg border border-indigo-200 dark:border-indigo-800">
-                                <span class="text-[11px] text-indigo-600 dark:text-indigo-300 font-semibold block">Proiezione Simulata 2026 (12M)</span>
-                                <span id="sim-projected-2026" class="text-lg font-extrabold text-indigo-700 dark:text-indigo-300">€ 503.018</span>
+                                <span class="text-[11px] text-indigo-600 dark:text-indigo-300 font-semibold block">Simulated 2026 Projection (12M)</span>
+                                <span id="sim-projected-2026" class="text-lg font-extrabold text-indigo-700 dark:text-indigo-300">€ 503,018</span>
                             </div>
                             <div class="p-3 bg-emerald-50 dark:bg-emerald-950/60 rounded-lg border border-emerald-200 dark:border-emerald-800">
-                                <span class="text-[11px] text-emerald-600 dark:text-emerald-300 font-semibold block">Scostamento Simulato vs 2025</span>
-                                <span id="sim-delta-val" class="text-base font-extrabold text-emerald-700 dark:text-emerald-300">+€ 15.230 (+3.12%)</span>
+                                <span class="text-[11px] text-emerald-600 dark:text-emerald-300 font-semibold block">Simulated Variance vs 2025</span>
+                                <span id="sim-delta-val" class="text-base font-extrabold text-emerald-700 dark:text-emerald-300">+€ 15,230 (+3.12%)</span>
                             </div>
                         </div>
                     </div>
@@ -625,7 +625,7 @@
                 <div>
                     <h3 id="emp-modal-name" class="text-xl font-bold text-slate-900 dark:text-white">ALLIEVI FRANCESCA</h3>
                     <div class="flex flex-wrap items-center gap-2 mt-1">
-                        <span id="emp-modal-contract" class="px-2.5 py-0.5 rounded-md bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 text-xs font-bold">AMMINISTRATIVO</span>
+                        <span id="emp-modal-contract" class="px-2.5 py-0.5 rounded-md bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 text-xs font-bold">ADMINISTRATIVE</span>
                         <span id="emp-modal-function" class="px-2.5 py-0.5 rounded-md bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300 text-xs font-bold">RECEPTION</span>
                     </div>
                 </div>
@@ -634,22 +634,22 @@
             <!-- Modal Metrics Row -->
             <div class="grid grid-cols-3 gap-3">
                 <div class="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700 text-center">
-                    <span class="block text-[10px] text-slate-400 font-semibold uppercase">Costo Totale</span>
-                    <span id="emp-modal-total-cost" class="text-sm font-extrabold text-slate-900 dark:text-white">€ 31.181</span>
+                    <span class="block text-[10px] text-slate-400 font-semibold uppercase">Total Cost</span>
+                    <span id="emp-modal-total-cost" class="text-sm font-extrabold text-slate-900 dark:text-white">€ 31,181</span>
                 </div>
                 <div class="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700 text-center">
-                    <span class="block text-[10px] text-slate-400 font-semibold uppercase">Media Mensile</span>
-                    <span id="emp-modal-avg-cost" class="text-sm font-extrabold text-indigo-600 dark:text-indigo-400">€ 1.559</span>
+                    <span class="block text-[10px] text-slate-400 font-semibold uppercase">Monthly Avg</span>
+                    <span id="emp-modal-avg-cost" class="text-sm font-extrabold text-indigo-600 dark:text-indigo-400">€ 1,559</span>
                 </div>
                 <div class="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700 text-center">
-                    <span class="block text-[10px] text-slate-400 font-semibold uppercase">Mesi Attivi</span>
+                    <span class="block text-[10px] text-slate-400 font-semibold uppercase">Active Months</span>
                     <span id="emp-modal-active-months" class="text-sm font-extrabold text-emerald-600 dark:text-emerald-400">20 / 20</span>
                 </div>
             </div>
 
             <!-- Employee Trend Chart -->
             <div>
-                <h4 class="text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">Andamento Mensile del Costo (€)</h4>
+                <h4 class="text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">Monthly Cost Progression (€)</h4>
                 <div class="h-56 w-full">
                     <canvas id="chart-employee-detail"></canvas>
                 </div>
@@ -657,16 +657,16 @@
 
             <!-- Employee Entries Table -->
             <div>
-                <h4 class="text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">Storico Registrazione Voci</h4>
+                <h4 class="text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">Historical Entry Log</h4>
                 <div class="max-h-40 overflow-y-auto custom-scrollbar border border-slate-200 dark:border-slate-800 rounded-xl">
                     <table class="w-full text-xs text-left text-slate-600 dark:text-slate-300">
                         <thead class="bg-slate-100 dark:bg-slate-800 text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 sticky top-0">
                             <tr>
-                                <th class="px-3 py-2">Anno</th>
-                                <th class="px-3 py-2">Mese</th>
-                                <th class="px-3 py-2">Contratto</th>
-                                <th class="px-3 py-2">Funzione</th>
-                                <th class="px-3 py-2 text-right">Costo (€)</th>
+                                <th class="px-3 py-2">Year</th>
+                                <th class="px-3 py-2">Month</th>
+                                <th class="px-3 py-2">Contract</th>
+                                <th class="px-3 py-2">Function</th>
+                                <th class="px-3 py-2 text-right">Cost (€)</th>
                             </tr>
                         </thead>
                         <tbody id="emp-modal-table-body" class="divide-y divide-slate-200 dark:divide-slate-800">
@@ -680,7 +680,7 @@
     <!-- FOOTER -->
     <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-4 text-center text-xs text-slate-400 mt-auto">
         <div class="max-w-7xl mx-auto px-4">
-            Dashboard Costo del Lavoro • Kundalini Unipersonale • Generata con Antigravity AI
+            Labor Cost Dashboard • Kundalini Unipersonale • Powered by Antigravity AI
         </div>
     </footer>
 
@@ -6550,6 +6550,38 @@
 ];
         let RAW_DATA = [];
         let FILTERED_DATA = [];
+        
+        // Month Mapping Dictionary
+        const MONTHS_MAP = {
+            'GENNAIO': 'January',
+            'FEBBRAIO': 'February',
+            'MARZO': 'March',
+            'APRILE': 'April',
+            'MAGGIO': 'May',
+            'GIUGNO': 'June',
+            'LUGLIO': 'July',
+            'AGOSTO': 'August',
+            'SETTEMBRE': 'September',
+            'OTTOBRE': 'October',
+            'NOVEMBRE': 'November',
+            'DICEMBRE': 'December'
+        };
+
+        const CONTRACTS_MAP = {
+            'AMMINISTRATIVO': 'Administrative',
+            'DIPENDENTE': 'Employee',
+            'PROFESSIONISTA': 'Professional / Contractor',
+            'SPORTIVO': 'Sports Staff'
+        };
+
+        const FUNCTIONS_MAP = {
+            'BAR': 'Bar',
+            'ISTRUTTORE': 'Instructor',
+            'ISTRUTTORE/TRACCIATORE': 'Instructor / Route Setter',
+            'RECEPTION': 'Reception',
+            'TRACCIATORE': 'Route Setter'
+        };
+
         const MONTHS_ORDER = ['GENNAIO', 'FEBBRAIO', 'MARZO', 'APRILE', 'MAGGIO', 'GIUGNO', 'LUGLIO', 'AGOSTO', 'SETTEMBRE', 'OTTOBRE', 'NOVEMBRE', 'DICEMBRE'];
 
         // Chart Instances Storage
@@ -6571,8 +6603,12 @@
 
         // Utility: Format Currency
         function formatEuro(amount) {
-            return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(amount);
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(amount);
         }
+
+        function translateMonth(m) { return MONTHS_MAP[m] || m; }
+        function translateContract(c) { return CONTRACTS_MAP[c] || c; }
+        function translateFunction(f) { return FUNCTIONS_MAP[f] || f; }
 
         // Initialize App
         document.addEventListener('DOMContentLoaded', async () => {
@@ -6580,17 +6616,17 @@
             initTheme();
             initTabs();
             
-            // Embedded dataset fallback for file:// protocol compatibility
+            // Embedded dataset fallback
             try {
                 const res = await fetch('data.json');
                 if (res.ok) {
                     RAW_DATA = await res.json();
                 } else {
-                    RAW_DATA = EMBEDDED_DATA;
+                    RAW_DATA = typeof EMBEDDED_DATA !== 'undefined' ? EMBEDDED_DATA : [];
                 }
             } catch (err) {
                 console.log("Loading embedded dataset fallback...");
-                RAW_DATA = EMBEDDED_DATA;
+                RAW_DATA = typeof EMBEDDED_DATA !== 'undefined' ? EMBEDDED_DATA : [];
             }
 
             FILTERED_DATA = [...RAW_DATA];
@@ -6604,7 +6640,7 @@
             const themeToggleBtn = document.getElementById('theme-toggle');
             themeToggleBtn.addEventListener('click', () => {
                 document.documentElement.classList.toggle('dark');
-                updateDashboard(); // Re-render charts for theme colors
+                updateDashboard();
             });
         }
 
@@ -6631,7 +6667,6 @@
                         }
                     });
 
-                    // Trigger chart resizes
                     setTimeout(() => window.dispatchEvent(new Event('resize')), 50);
                 });
             });
@@ -6729,11 +6764,11 @@
             const query = document.getElementById('filter-persona').value;
 
             const tags = [];
-            if (anno !== 'ALL') tags.push(`Anno: ${anno}`);
-            if (mese !== 'ALL') tags.push(`Mese: ${mese}`);
-            if (contr !== 'ALL') tags.push(`Contratto: ${contr}`);
-            if (func !== 'ALL') tags.push(`Funzione: ${func}`);
-            if (query) tags.push(`Nome: "${query}"`);
+            if (anno !== 'ALL') tags.push(`Year: ${anno}`);
+            if (mese !== 'ALL') tags.push(`Month: ${translateMonth(mese)}`);
+            if (contr !== 'ALL') tags.push(`Contract: ${translateContract(contr)}`);
+            if (func !== 'ALL') tags.push(`Function: ${translateFunction(func)}`);
+            if (query) tags.push(`Name: "${query}"`);
 
             tags.forEach(t => {
                 const tagEl = document.createElement('span');
@@ -6749,24 +6784,19 @@
             const gridColor = isDark ? 'rgba(51, 65, 85, 0.3)' : 'rgba(226, 232, 240, 0.8)';
             const textColor = isDark ? '#94a3b8' : '#64748b';
 
-            // 1. Calculate Core KPIs
+            // 1. Core KPIs
             const totalCost = FILTERED_DATA.reduce((acc, row) => acc + row['COSTO AZIENDA'], 0);
             const recordsCount = FILTERED_DATA.length;
             
-            // Unique people count in current filter
             const uniquePeople = new Set(FILTERED_DATA.map(r => r.PERSONA));
             const activePeopleCount = uniquePeople.size;
-            
-            // Average cost per person
             const avgPerPerson = activePeopleCount > 0 ? totalCost / activePeopleCount : 0;
 
-            // Monthly average cost (group by YYYY-MM)
             const yearMonthSet = new Set(FILTERED_DATA.map(r => `${r.ANNO}-${r.MESE}`));
             const activeMonthCount = yearMonthSet.size || 1;
             const monthlyAvgCost = totalCost / activeMonthCount;
 
-            // Update Header & KPI elements
-            document.getElementById('header-records-count').innerText = recordsCount.toLocaleString('it-IT');
+            document.getElementById('header-records-count').innerText = recordsCount.toLocaleString('en-US');
             document.getElementById('header-filtered-cost').innerText = formatEuro(totalCost);
             
             document.getElementById('kpi-total-cost').innerText = formatEuro(totalCost);
@@ -6775,28 +6805,28 @@
             document.getElementById('tab-count-persone').innerText = activePeopleCount;
             document.getElementById('kpi-avg-per-person').innerText = formatEuro(avgPerPerson);
 
-            // 2. Render Overview Charts
+            // 2. Overview Charts
             renderMonthlyTrendChart(gridColor, textColor);
             renderContractDoughnutChart();
             renderFunctionBarChart(gridColor, textColor);
             renderTopEmployeesChart(gridColor, textColor);
 
-            // 3. Render Temporal Tab
+            // 3. Temporal Tab
             renderMonthlyComparisonTable();
             renderMonthlyStackedContractsChart(gridColor, textColor);
 
-            // 4. Render Employee Cards
+            // 4. Employee Cards
             renderEmployeeCards();
 
-            // 5. Render Contract & Function Analytics
+            // 5. Contract & Function Analytics
             renderContractAnalytics(gridColor, textColor);
             renderFunctionAnalytics(gridColor, textColor);
 
-            // 6. Render DataTable
+            // 6. DataTable
             dtCurrentPage = 1;
             renderDataTable();
 
-            // 7. Render Simulator
+            // 7. Simulator
             renderSimulator();
         }
 
@@ -6821,10 +6851,10 @@
             chartMonthlyTrendInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: MONTHS_ORDER.map(m => m.substring(0, 3)),
+                    labels: MONTHS_ORDER.map(m => translateMonth(m).substring(0, 3)),
                     datasets: [
                         {
-                            label: 'Costo 2025 (€)',
+                            label: 'Cost 2025 (€)',
                             data: cost2025,
                             borderColor: '#6366f1',
                             backgroundColor: 'rgba(99, 102, 241, 0.1)',
@@ -6835,7 +6865,7 @@
                             pointHoverRadius: 6
                         },
                         {
-                            label: 'Costo 2026 (€)',
+                            label: 'Cost 2026 (€)',
                             data: cost2026,
                             borderColor: '#10b981',
                             backgroundColor: 'rgba(16, 185, 129, 0.1)',
@@ -6871,7 +6901,8 @@
             
             const contractTotals = {};
             FILTERED_DATA.forEach(r => {
-                contractTotals[r.CONTRATTO] = (contractTotals[r.CONTRATTO] || 0) + r['COSTO AZIENDA'];
+                const label = translateContract(r.CONTRATTO);
+                contractTotals[label] = (contractTotals[label] || 0) + r['COSTO AZIENDA'];
             });
 
             const labels = Object.keys(contractTotals);
@@ -6907,7 +6938,8 @@
 
             const funcTotals = {};
             FILTERED_DATA.forEach(r => {
-                funcTotals[r.FUNZIONE] = (funcTotals[r.FUNZIONE] || 0) + r['COSTO AZIENDA'];
+                const label = translateFunction(r.FUNZIONE);
+                funcTotals[label] = (funcTotals[label] || 0) + r['COSTO AZIENDA'];
             });
 
             const sortedKeys = Object.keys(funcTotals).sort((a,b) => funcTotals[b] - funcTotals[a]);
@@ -6920,7 +6952,7 @@
                 data: {
                     labels: sortedKeys,
                     datasets: [{
-                        label: 'Costo Totale (€)',
+                        label: 'Total Cost (€)',
                         data: data,
                         backgroundColor: 'rgba(99, 102, 241, 0.85)',
                         borderRadius: 8
@@ -6931,7 +6963,7 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: { display: false },
-                        tooltip: { callbacks: { label: ctx => `Costo: ${formatEuro(ctx.raw)}` } }
+                        tooltip: { callbacks: { label: ctx => `Cost: ${formatEuro(ctx.raw)}` } }
                     },
                     scales: {
                         x: { grid: { color: gridColor }, ticks: { color: textColor, font: { size: 10 } } },
@@ -6961,7 +6993,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Spesa Totale (€)',
+                        label: 'Total Spend (€)',
                         data: data,
                         backgroundColor: 'rgba(245, 158, 11, 0.85)',
                         borderRadius: 6
@@ -6972,7 +7004,7 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: { display: false },
-                        tooltip: { callbacks: { label: ctx => `Totale: ${formatEuro(ctx.raw)}` } }
+                        tooltip: { callbacks: { label: ctx => `Total: ${formatEuro(ctx.raw)}` } }
                     },
                     scales: {
                         x: { grid: { color: gridColor }, ticks: { color: textColor, font: { size: 10 }, callback: v => '€' + (v/1000) + 'k' } },
@@ -7006,7 +7038,7 @@
                 const tr = document.createElement('tr');
                 tr.className = 'hover:bg-slate-50 dark:hover:bg-slate-800/50 transition';
                 
-                let trendBadge = `<span class="text-slate-400 text-[10px]">N/D</span>`;
+                let trendBadge = `<span class="text-slate-400 text-[10px]">N/A</span>`;
                 if (has2026) {
                     if (deltaAbs > 0) {
                         trendBadge = `<span class="px-2 py-0.5 rounded-full bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 font-bold text-[10px] inline-flex items-center gap-0.5">▲ +${deltaPct}%</span>`;
@@ -7018,7 +7050,7 @@
                 }
 
                 tr.innerHTML = `
-                    <td class="px-4 py-2.5 font-bold text-slate-800 dark:text-slate-200">${m}</td>
+                    <td class="px-4 py-2.5 font-bold text-slate-800 dark:text-slate-200">${translateMonth(m)}</td>
                     <td class="px-4 py-2.5 text-right font-medium">${formatEuro(c2025)}</td>
                     <td class="px-4 py-2.5 text-right font-medium">${has2026 ? formatEuro(c2026) : '<span class="text-slate-400">-</span>'}</td>
                     <td class="px-4 py-2.5 text-right font-semibold ${deltaAbs > 0 ? 'text-rose-600 dark:text-rose-400' : deltaAbs < 0 ? 'text-emerald-600 dark:text-emerald-400' : ''}">${has2026 ? (deltaAbs > 0 ? '+' : '') + formatEuro(deltaAbs) : '-'}</td>
@@ -7028,14 +7060,12 @@
                 tbody.appendChild(tr);
             });
 
-            const totalDeltaAbs = sum2026 - FILTERED_DATA.filter(r => r.ANNO === 2025 && MONTHS_ORDER.indexOf(r.MESE) <= 7).reduce((a,b)=>a+b['COSTO AZIENDA'], 0);
-            
             tfoot.innerHTML = `
                 <tr>
-                    <td class="px-4 py-3 text-slate-900 dark:text-white">TOTALE COMPLESSIVO</td>
+                    <td class="px-4 py-3 text-slate-900 dark:text-white">TOTAL OVERALL</td>
                     <td class="px-4 py-3 text-right text-indigo-600 dark:text-indigo-400">${formatEuro(sum2025)}</td>
                     <td class="px-4 py-3 text-right text-emerald-600 dark:text-emerald-400">${formatEuro(sum2026)}</td>
-                    <td class="px-4 py-3 text-right" colspan="3">Proiezione Run-Rate 2026: <span class="text-indigo-600 dark:text-indigo-300">~€503k</span></td>
+                    <td class="px-4 py-3 text-right" colspan="3">2026 Run-Rate Projection: <span class="text-indigo-600 dark:text-indigo-300">~€503k</span></td>
                 </tr>
             `;
         }
@@ -7046,10 +7076,9 @@
             const contracts = ['AMMINISTRATIVO', 'DIPENDENTE', 'PROFESSIONISTA', 'SPORTIVO'];
             const colors = ['#3b82f6', '#10b981', '#f59e0b', '#6366f1'];
 
-            // 20 months labels: 2025-GEN...2025-DIC, 2026-GEN...2026-AGO
             const monthLabels = [
-                ...MONTHS_ORDER.map(m => `25 ${m.substring(0,3)}`),
-                ...MONTHS_ORDER.slice(0, 8).map(m => `26 ${m.substring(0,3)}`)
+                ...MONTHS_ORDER.map(m => `25 ${translateMonth(m).substring(0,3)}`),
+                ...MONTHS_ORDER.slice(0, 8).map(m => `26 ${translateMonth(m).substring(0,3)}`)
             ];
 
             const datasets = contracts.map((c, idx) => {
@@ -7066,7 +7095,7 @@
                 });
 
                 return {
-                    label: c,
+                    label: translateContract(c),
                     data: data,
                     backgroundColor: colors[idx],
                     borderRadius: 4
@@ -7102,7 +7131,6 @@
             const container = document.getElementById('employee-cards-container');
             container.innerHTML = '';
 
-            // Group filtered data by person
             const peopleMap = {};
             FILTERED_DATA.forEach(r => {
                 if (!peopleMap[r.PERSONA]) {
@@ -7130,8 +7158,8 @@
 
             peopleList.forEach(p => {
                 const initials = p.name.split(' ').map(n => n[0]).join('').substring(0,2);
-                const mainContract = Array.from(p.contracts).join(', ');
-                const mainFunction = Array.from(p.functions).join(', ');
+                const mainContract = Array.from(p.contracts).map(translateContract).join(', ');
+                const mainFunction = Array.from(p.functions).map(translateFunction).join(', ');
 
                 const card = document.createElement('div');
                 card.className = 'glass-panel p-4 rounded-2xl shadow-sm hover:shadow-md transition cursor-pointer flex flex-col justify-between border hover:border-indigo-500';
@@ -7147,27 +7175,27 @@
                                 <h4 class="font-bold text-xs text-slate-800 dark:text-slate-100 truncate max-w-[140px]" title="${p.name}">${p.name}</h4>
                             </div>
                             <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 shrink-0">
-                                ${p.monthsSet.size} Mesi
+                                ${p.monthsSet.size} Mos
                             </span>
                         </div>
                         <div class="space-y-1.5 text-[11px] text-slate-500 dark:text-slate-400">
                             <div class="flex justify-between">
-                                <span class="text-slate-400">Contratto:</span>
+                                <span class="text-slate-400">Contract:</span>
                                 <span class="font-semibold text-slate-700 dark:text-slate-200 truncate max-w-[130px]">${mainContract}</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-slate-400">Funzione:</span>
+                                <span class="text-slate-400">Function:</span>
                                 <span class="font-semibold text-slate-700 dark:text-slate-200 truncate max-w-[130px]">${mainFunction}</span>
                             </div>
                         </div>
                     </div>
                     <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                         <div>
-                            <span class="block text-[9px] text-slate-400 uppercase font-semibold">Costo Totale</span>
+                            <span class="block text-[9px] text-slate-400 uppercase font-semibold">Total Cost</span>
                             <span class="text-sm font-extrabold text-indigo-600 dark:text-indigo-400">${formatEuro(p.totalCost)}</span>
                         </div>
                         <span class="text-[10px] font-bold text-slate-400 group-hover:text-indigo-500 flex items-center gap-0.5">
-                            Profilo <i data-lucide="chevron-right" class="w-3 h-3"></i>
+                            Profile <i data-lucide="chevron-right" class="w-3 h-3"></i>
                         </span>
                     </div>
                 `;
@@ -7188,8 +7216,8 @@
             document.getElementById('emp-modal-avatar').innerText = initials;
             document.getElementById('emp-modal-name').innerText = name;
 
-            const contracts = Array.from(new Set(empEntries.map(r => r.CONTRATTO))).join(', ');
-            const functions = Array.from(new Set(empEntries.map(r => r.FUNZIONE))).join(', ');
+            const contracts = Array.from(new Set(empEntries.map(r => translateContract(r.CONTRATTO)))).join(', ');
+            const functions = Array.from(new Set(empEntries.map(r => translateFunction(r.FUNZIONE)))).join(', ');
             document.getElementById('emp-modal-contract').innerText = contracts;
             document.getElementById('emp-modal-function').innerText = functions;
 
@@ -7201,22 +7229,20 @@
             document.getElementById('emp-modal-avg-cost').innerText = formatEuro(avgCost);
             document.getElementById('emp-modal-active-months').innerText = `${monthsCount} / 20`;
 
-            // Modal Table
             const tbody = document.getElementById('emp-modal-table-body');
             tbody.innerHTML = '';
             empEntries.sort((a,b) => b.ANNO - a.ANNO || MONTHS_ORDER.indexOf(b.MESE) - MONTHS_ORDER.indexOf(a.MESE)).forEach(r => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td class="px-3 py-1.5 font-bold">${r.ANNO}</td>
-                    <td class="px-3 py-1.5">${r.MESE}</td>
-                    <td class="px-3 py-1.5">${r.CONTRATTO}</td>
-                    <td class="px-3 py-1.5">${r.FUNZIONE}</td>
+                    <td class="px-3 py-1.5">${translateMonth(r.MESE)}</td>
+                    <td class="px-3 py-1.5">${translateContract(r.CONTRATTO)}</td>
+                    <td class="px-3 py-1.5">${translateFunction(r.FUNZIONE)}</td>
                     <td class="px-3 py-1.5 text-right font-extrabold text-indigo-600 dark:text-indigo-400">${formatEuro(r['COSTO AZIENDA'])}</td>
                 `;
                 tbody.appendChild(tr);
             });
 
-            // Modal Chart
             const ctx = document.getElementById('chart-employee-detail').getContext('2d');
             const data2025 = MONTHS_ORDER.map(m => {
                 const row = empEntries.find(r => r.ANNO === 2025 && r.MESE === m);
@@ -7232,7 +7258,7 @@
             chartEmployeeDetailInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: MONTHS_ORDER.map(m => m.substring(0,3)),
+                    labels: MONTHS_ORDER.map(m => translateMonth(m).substring(0,3)),
                     datasets: [
                         { label: '2025 (€)', data: data2025, borderColor: '#6366f1', tension: 0.3, fill: false },
                         { label: '2026 (€)', data: data2026, borderColor: '#10b981', tension: 0.3, fill: false }
@@ -7267,10 +7293,10 @@
                 const card = document.createElement('div');
                 card.className = 'glass-panel p-4 rounded-2xl';
                 card.innerHTML = `
-                    <div class="text-xs font-bold text-slate-400 uppercase">${c}</div>
+                    <div class="text-xs font-bold text-slate-400 uppercase">${translateContract(c)}</div>
                     <div class="text-xl font-extrabold text-slate-900 dark:text-white mt-1">${formatEuro(cost)}</div>
-                    <div class="mt-2 text-xs font-semibold text-indigo-600 dark:text-indigo-400">${pct}% del totale</div>
-                    <div class="mt-1 text-[11px] text-slate-400">${peopleCount} Collaboratori (${formatEuro(avgPerson)}/pers.)</div>
+                    <div class="mt-2 text-xs font-semibold text-indigo-600 dark:text-indigo-400">${pct}% of total</div>
+                    <div class="mt-1 text-[11px] text-slate-400">${peopleCount} Staff Members (${formatEuro(avgPerson)}/pers.)</div>
                 `;
                 container.appendChild(card);
             });
@@ -7289,9 +7315,9 @@
             chartContractAvgBarInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: contracts,
+                    labels: contracts.map(translateContract),
                     datasets: [{
-                        label: 'Costo Medio per Voce (€)',
+                        label: 'Average Cost per Entry (€)',
                         data: avgData,
                         backgroundColor: '#3b82f6',
                         borderRadius: 6
@@ -7311,9 +7337,9 @@
             // Cross Table
             const headerTr = document.getElementById('cross-table-contract-header');
             const tbody = document.getElementById('cross-table-contract-body');
-            headerTr.innerHTML = '<th class="px-3 py-2 font-bold">Funzione \\ Contratto</th>';
+            headerTr.innerHTML = '<th class="px-3 py-2 font-bold">Function \\ Contract</th>';
             contracts.forEach(c => {
-                headerTr.innerHTML += `<th class="px-3 py-2 text-right font-bold">${c}</th>`;
+                headerTr.innerHTML += `<th class="px-3 py-2 text-right font-bold">${translateContract(c)}</th>`;
             });
 
             tbody.innerHTML = '';
@@ -7321,7 +7347,7 @@
 
             functions.forEach(f => {
                 const tr = document.createElement('tr');
-                let html = `<td class="px-3 py-2 font-bold text-slate-800 dark:text-slate-200">${f}</td>`;
+                let html = `<td class="px-3 py-2 font-bold text-slate-800 dark:text-slate-200">${translateFunction(f)}</td>`;
                 contracts.forEach(c => {
                     const val = FILTERED_DATA.filter(r => r.FUNZIONE === f && r.CONTRATTO === c).reduce((a,b) => a + b['COSTO AZIENDA'], 0);
                     html += `<td class="px-3 py-2 text-right font-medium">${val > 0 ? formatEuro(val) : '<span class="text-slate-300 dark:text-slate-700">-</span>'}</td>`;
@@ -7349,10 +7375,10 @@
                 const card = document.createElement('div');
                 card.className = 'glass-panel p-4 rounded-2xl';
                 card.innerHTML = `
-                    <div class="text-[11px] font-bold text-slate-400 uppercase truncate">${f}</div>
+                    <div class="text-[11px] font-bold text-slate-400 uppercase truncate">${translateFunction(f)}</div>
                     <div class="text-lg font-extrabold text-slate-900 dark:text-white mt-1">${formatEuro(cost)}</div>
-                    <div class="mt-1 text-xs font-semibold text-purple-600 dark:text-purple-400">${pct}% del totale</div>
-                    <div class="mt-1 text-[10px] text-slate-400">${peopleCount} Persone</div>
+                    <div class="mt-1 text-xs font-semibold text-purple-600 dark:text-purple-400">${pct}% of total</div>
+                    <div class="mt-1 text-[10px] text-slate-400">${peopleCount} People</div>
                 `;
                 container.appendChild(card);
             });
@@ -7367,16 +7393,16 @@
             chartFunctionComboInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: functions,
+                    labels: functions.map(translateFunction),
                     datasets: [
                         {
-                            label: 'Costo Totale (€)',
+                            label: 'Total Cost (€)',
                             data: costs,
                             backgroundColor: 'rgba(99, 102, 241, 0.85)',
                             yAxisID: 'y'
                         },
                         {
-                            label: 'N. Collaboratori',
+                            label: 'Staff Headcount',
                             data: headcounts,
                             type: 'line',
                             borderColor: '#f59e0b',
@@ -7428,7 +7454,7 @@
                 return 0;
             });
 
-            document.getElementById('datatable-count').innerText = sorted.length.toLocaleString('it-IT');
+            document.getElementById('datatable-count').innerText = sorted.length.toLocaleString('en-US');
 
             const totalPages = Math.ceil(sorted.length / dtPageSize) || 1;
             if (dtCurrentPage > totalPages) dtCurrentPage = totalPages;
@@ -7440,37 +7466,45 @@
                 const tr = document.createElement('tr');
                 tr.className = 'hover:bg-slate-50 dark:hover:bg-slate-800/50 transition';
                 tr.innerHTML = `
-                    <td class="px-4 py-2.5 font-bold">${r.MESE}</td>
+                    <td class="px-4 py-2.5 font-bold">${translateMonth(r.MESE)}</td>
                     <td class="px-4 py-2.5 font-semibold text-indigo-600 dark:text-indigo-400">${r.ANNO}</td>
                     <td class="px-4 py-2.5 font-bold text-slate-900 dark:text-white cursor-pointer hover:underline" onclick="openEmployeeModal('${r.PERSONA.replace(/'/g, "\\'")}')">${r.PERSONA}</td>
-                    <td class="px-4 py-2.5"><span class="px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-bold text-[10px]">${r.CONTRATTO}</span></td>
-                    <td class="px-4 py-2.5"><span class="px-2 py-0.5 rounded bg-purple-50 dark:bg-purple-950 text-purple-700 dark:text-purple-300 font-bold text-[10px]">${r.FUNZIONE}</span></td>
+                    <td class="px-4 py-2.5"><span class="px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-bold text-[10px]">${translateContract(r.CONTRATTO)}</span></td>
+                    <td class="px-4 py-2.5"><span class="px-2 py-0.5 rounded bg-purple-50 dark:bg-purple-950 text-purple-700 dark:text-purple-300 font-bold text-[10px]">${translateFunction(r.FUNZIONE)}</span></td>
                     <td class="px-4 py-2.5 text-right font-extrabold text-slate-900 dark:text-white">${formatEuro(r['COSTO AZIENDA'])}</td>
                 `;
                 tbody.appendChild(tr);
             });
 
-            document.getElementById('datatable-info').innerText = `Pagina ${dtCurrentPage} di ${totalPages}`;
+            document.getElementById('datatable-info').innerText = `Page ${dtCurrentPage} of ${totalPages}`;
             document.getElementById('btn-page-prev').disabled = dtCurrentPage === 1;
             document.getElementById('btn-page-next').disabled = dtCurrentPage === totalPages;
         }
 
         // Export Functions
         function exportToExcel() {
-            const worksheet = XLSX.utils.json_to_sheet(FILTERED_DATA);
+            const translatedData = FILTERED_DATA.map(r => ({
+                'Month': translateMonth(r.MESE),
+                'Year': r.ANNO,
+                'Staff Member': r.PERSONA,
+                'Contract': translateContract(r.CONTRATTO),
+                'Function': translateFunction(r.FUNZIONE),
+                'Company Cost (€)': r['COSTO AZIENDA']
+            }));
+            const worksheet = XLSX.utils.json_to_sheet(translatedData);
             const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "Costo Lavoro");
-            XLSX.writeFile(workbook, `Dashboard_Costo_Lavoro_Export_${new Date().toISOString().slice(0,10)}.xlsx`);
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Labor Cost");
+            XLSX.writeFile(workbook, `Labor_Cost_Export_${new Date().toISOString().slice(0,10)}.xlsx`);
         }
 
         function exportToCSV() {
-            const headers = ['MESE', 'ANNO', 'PERSONA', 'CONTRATTO', 'FUNZIONE', 'COSTO AZIENDA'];
-            const rows = FILTERED_DATA.map(r => [r.MESE, r.ANNO, `"${r.PERSONA}"`, `"${r.CONTRATTO}"`, `"${r.FUNZIONE}"`, r['COSTO AZIENDA']]);
+            const headers = ['Month', 'Year', 'Staff Member', 'Contract', 'Function', 'Company Cost (€)'];
+            const rows = FILTERED_DATA.map(r => [translateMonth(r.MESE), r.ANNO, `"${r.PERSONA}"`, `"${translateContract(r.CONTRATTO)}"`, `"${translateFunction(r.FUNZIONE)}"`, r['COSTO AZIENDA']]);
             let csvContent = "data:text/csv;charset=utf-8," + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `Costo_Lavoro_Export_${new Date().toISOString().slice(0,10)}.csv`);
+            link.setAttribute("download", `Labor_Cost_Export_${new Date().toISOString().slice(0,10)}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -7482,14 +7516,10 @@
             const pctVal = parseFloat(document.getElementById('sim-pct').value) || 0;
             const monthlyEstimate = parseFloat(document.getElementById('sim-forecast-monthly').value) || 41918;
 
-            // 2026 Actual (Jan-Aug 8 months)
             const sum2026Actual = RAW_DATA.filter(r => r.ANNO === 2026).reduce((a,b) => a + b['COSTO AZIENDA'], 0);
-            
-            // Forecast 4 remaining months (Sep-Dec)
             const forecast4M = monthlyEstimate * 4;
             const baseFull2026 = sum2026Actual + forecast4M;
 
-            // Apply salary percentage adjustment
             const simulatedFull2026 = baseFull2026 * (1 + (pctVal / 100));
             const sum2025Actual = RAW_DATA.filter(r => r.ANNO === 2025).reduce((a,b) => a + b['COSTO AZIENDA'], 0);
             const deltaVS2025 = simulatedFull2026 - sum2025Actual;
@@ -7498,7 +7528,6 @@
             document.getElementById('sim-projected-2026').innerText = formatEuro(simulatedFull2026);
             document.getElementById('sim-delta-val').innerText = `${deltaVS2025 >= 0 ? '+' : ''}${formatEuro(deltaVS2025)} (${deltaVS2025 >= 0 ? '+' : ''}${deltaPctVS2025}%)`;
 
-            // Chart Simulation
             const ctx = document.getElementById('chart-sim-forecast').getContext('2d');
             const isDark = document.documentElement.classList.contains('dark');
             const gridColor = isDark ? 'rgba(51, 65, 85, 0.3)' : 'rgba(226, 232, 240, 0.8)';
@@ -7509,9 +7538,9 @@
             chartSimForecastInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Consuntivo 2025 (12M)', 'Consuntivo 2026 (8M)', 'Stima Forecast 2026 (12M)', 'Scenario Simulato 2026 (12M)'],
+                    labels: ['2025 Actual (12M)', '2026 Actual (8M)', '2026 Forecast (12M)', '2026 Simulated Scenario (12M)'],
                     datasets: [{
-                        label: 'Costo Azienda (€)',
+                        label: 'Company Cost (€)',
                         data: [sum2025Actual, sum2026Actual, baseFull2026, Math.round(simulatedFull2026)],
                         backgroundColor: ['#6366f1', '#3b82f6', '#10b981', '#f59e0b'],
                         borderRadius: 8
@@ -7522,7 +7551,7 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: { display: false },
-                        tooltip: { callbacks: { label: ctx => `Totale: ${formatEuro(ctx.raw)}` } }
+                        tooltip: { callbacks: { label: ctx => `Total: ${formatEuro(ctx.raw)}` } }
                     },
                     scales: {
                         x: { grid: { color: gridColor }, ticks: { color: textColor, font: { size: 10, weight: 600 } } },
