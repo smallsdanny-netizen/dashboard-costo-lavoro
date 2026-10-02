@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 import os
+import re
 import subprocess
 
 print("=== AGGIORNAMENTO AUTOMATICO DASHBOARD ===")
@@ -32,11 +33,14 @@ print("3. Integrazione dati in index.html...")
 with open('index.html', 'r', encoding='utf-8') as f:
     html = f.read()
 
-# Replace EMBEDDED_DATA constant
-import re
-data_json_str = json.dumps(records, ensure_ascii=False)
-new_embedded = f"const EMBEDDED_DATA = {data_json_str};"
-html = re.sub(r'const EMBEDDED_DATA = \[.*?\];', new_embedded, html, flags=re.DOTALL)
+json_str = json.dumps(records, ensure_ascii=False)
+new_block = '/* DATA_START */\n        const EMBEDDED_DATA = ' + json_str + ';\n        /* DATA_END */'
+
+if '/* DATA_START */' in html and '/* DATA_END */' in html:
+    html = re.sub(r'/\* DATA_START \*/.*?/\* DATA_END \*/', new_block, html, flags=re.DOTALL)
+else:
+    print("   Warning: DATA_START markers not found, doing fallback replacement...")
+    html = re.sub(r'const EMBEDDED_DATA = \[.*?\];', f'const EMBEDDED_DATA = {json_str};', html, count=1, flags=re.DOTALL)
 
 with open('index.html', 'w', encoding='utf-8') as f:
     f.write(html)
